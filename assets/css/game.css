@@ -1,0 +1,72 @@
+#game .container .row {
+	flex-direction: column;
+	grid-gap: 2rem;
+	max-width: 720px;
+	width: 100%;
+	margin: auto;
+}
+#game .canvas {
+	display: flex;
+	grid-gap: 1rem;
+	flex-wrap: wrap;
+	align-items: stretch;
+}
+.btn-hands {
+	font-size: 4rem;
+	padding: 1.5rem 0;
+	cursor: pointer;
+	border: 4px solid var(--black);
+	background-color: var(--primary-normal-color);
+	border-radius: .5rem;
+	transition: all 300ms ease-in-out;
+	box-shadow: 3px 6px var(--black);
+	flex: 1 1 120px;
+}
+#game #restart:focus,
+#game #restart:hover,
+.btn-hands:focus,
+.btn-hands:hover {
+	background-color: var(--primary-dark-color);
+	box-shadow: 3px 3px var(--black);
+	transform: translateY(3px);
+}
+#game .text-result {
+	margin: auto;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+}
+#game .score {
+	display: flex;
+	grid-gap: 1rem;
+	align-items: center;
+	justify-content: space-between;
+	max-width: 720px;
+	width: 100%;
+}
+#game #result {
+	font-size: 2rem;
+}
+#game .my-3 {
+}
+#game #restart {
+	padding: 1rem 0;
+	font-weight: bold;
+	width: 100%;
+	font-size: 2rem;
+	cursor: pointer;
+	border: 4px solid var(--black);
+	background-color: var(--primary-normal-color);
+	transition: all 300ms ease-in-out;
+	box-shadow: 3px 6px var(--black);
+	border-radius: .5rem;
+	display: none;
+}
+#game .spaces {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}

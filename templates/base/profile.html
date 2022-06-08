@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="profile">
+<div class="container">
+	<div class="row">
+		<div class="data-profile">
+			<div class="wrap">
+				<h2 class="text-title">Profile</h2>
+				<div class="among-start">
+				<div class="data-group">
+				<p>Name: 
+					{% if data.first_name != '' %}
+						{{ data.first_name }} {{ data.last_name }}
+					{% else %}
+						<a href="{% url 'profile_edit' data.id %}" class="link">Complete your profile!</a>
+					{% endif %}
+				</p>
+				<p>Email: 
+					{% if data.email != '' %}
+						{{ data.email }}
+					{% else %}
+						<a href="{% url 'profile_edit' data.id %}" class="link">Complete your profile!</a>
+					{% endif %}
+				</p>
+				<p>Username: @{{ data.username }}</p>
+				<p>Password: ••••••••</p>
+				</div>
+				<a href="{% url 'profile_edit' request.user.id %}" class="link">
+					<i class="fas fa-edit"></i>
+				</a>
+				</div>
+			</div>
+		</div>
+		<div class="data-lounge">
+			<div class="wrap">
+				<h2 class="text-title">Lounges</h2>
+				<ul class="lounge-list">
+				{% if lounges %}
+				{% for each in lounges %}
+				<li><a href="{% url 'lounge_details' each.id %}" class="link">{{ each }}</a></li>
+				{% endfor %}
+				{% else %}
+				<p>No lounges available, <a href="{% url 'lounge_insert' %}" class="link">create one</a>.</p>
+				{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+{% endblock content %}

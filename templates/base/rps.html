@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<section id="game">
+	<div class="container">
+		<div class="row">
+			<div class="spaces" id="spaces">
+			<p class="my-3">Moves: <span id="move">7</span></p>
+			<p id="nextScore"></p>
+			</div>
+			<div class="canvas" id="canvas">
+				<button class="btn-hands" role="button" onclick="game('✊')">✊</button>
+				<button class="btn-hands" role="button" onclick="game('✋')">✋</button>
+				<button class="btn-hands" role="button" onclick="game('✌')">✌</button>
+			</div>
+			<button class="restart" id="restart" role="button" onclick="window.location.reload();">Restart</button>
+			<div class="text-result" id="textResult">
+				<div class="score">
+					<p>Player: <span id="playerScore">0</span></p>		
+					<p id="result">Result</p>
+					<p>Bot: <span id="botScore">0</span></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'modal-del.html' %}
+<section class="lounge" id="lounge">
+	<div class="container">
+		<div class="row">
+			{% include 'base/tags.html' %}
+			<div class="mid">
+				<div class="new-post-maybe">
+					<p>There are {{ lounges.count }} lounge(s) available.</p>
+				</div>
+				<div class="new-post-maybe">
+				{% if request.user.is_authenticated %}
+				<p>Click here to write a <a href="{% url 'lounge_insert' %}" class="link">new</a> post.</p>
+				{% else %}
+				<p>Please <a href="{% url 'auth' %}" class="link underlined">Login/Register</a> to join to the lounge.</p>
+				{% endif %}
+				</div>
+				{% for lounge in pages %}
+					{% include 'base/content.html' %}
+				{% endfor %}
+			</div>
+			{% include 'base/updates.html' %}
+		</div>
+	</div>
+</section>
+{% include 'pagination.html' %}
+{% endblock content %}

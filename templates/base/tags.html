@@ -1,0 +1,9 @@
+<div class="tags">
+	<h2 class="text-title">Tags</h2>
+	<ul class="list-group">
+		<li class="list-group-item"><a href="{% url 'lounge' %}">All</a><span class="tag-count">{{ all_lounges_count }}</span></li>
+		{% for topic in topics %}
+		<li class="list-group-item">#<a href="{% url 'lounge' %}?tag={{ topic }}">{{ topic }}</a><span class="tag-count">{{ topic.lounge_set.all.count }}</span></li>
+		{% endfor %}
+	</ul>
+</div>

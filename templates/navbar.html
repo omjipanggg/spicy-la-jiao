@@ -1,0 +1,65 @@
+<div id="moving"></div>
+<div id="overlay"></div>
+<a href="#skip" class="skip">Skip</a>
+<nav class="navbar">
+	<div class="container">
+		<div class="row">
+			<div class="logo">
+	            <div class="hamburger hamburger--spin-r">
+	                <div class="hamburger-box">
+	                    <div class="hamburger-inner"></div>
+	                </div>
+	            </div>
+	            <div class="logo-group">
+	            	<a href="/">
+						<h2>Misrocite</h2>
+	            	</a>
+					<p class="smol">Description</p>
+	            </div>
+			</div>
+			<div class="menu">
+				<ul>
+					<li><a href="{% url 'lounge' %}">Lounge</a></li>
+					<li><a href="{% url 'rps' %}">RPS</a></li>
+					<li><a href="{% url 'task' %}">Task-list</a></li>
+					{% if request.user.is_authenticated %}
+					<li class="dropdown">
+						<a href="#">@{{ user.username }}</a>
+						<ul class="drop-dead">
+							<li><a href="{% url 'profile' request.user.id %}">Profile</a></li>
+							<li><a href="/admin/">Dashboard</a></li>
+							<li><a href="{% url 'destroy' %}">Logout</a></li>
+						</ul>
+					</li>
+					{% else %}
+					<li><a href="{% url 'auth' %}" class="login">Login</a></li>
+					{% endif %}
+				</ul>
+				<div class="bar">
+					<div class="circle"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
+<nav class="menu-mobile">
+	<ul>
+		<li><a href="{% url 'lounge' %}">Lounge</a></li>
+		<li><a href="{% url 'rps' %}">RPS</a></li>
+		<li><a href="{% url 'task' %}">Task-list</a></li>
+	</ul>
+	<ul>
+		{% if request.user.is_authenticated %}
+		<li class="profile">
+			<a href="#">@{{ user.username }}</a>
+			<ul class="dropdown-item">
+				<li><a href="{% url 'profile' request.user.id %}">Profile</a></li>
+				<li><a href="/admin/">Dashboard</a></li>
+				<li><a href="{% url 'destroy' %}">Logout</a></li>
+			</ul>
+		</li>
+		{% else %}
+		<li><a href="{% url 'auth' %}">Login</a></li>
+		{% endif %}
+	</ul>
+</nav>

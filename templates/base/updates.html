@@ -1,0 +1,22 @@
+<div class="updates">
+	<h2 class="text-title">Updates</h2>
+	{% if recent_updates %}
+	{% for update in recent_updates|slice:"0:4" %}
+	<div class="box-updates item">
+		<div class="among-spaces">
+		<p>@<a href="{% url 'profile' update.user.id %}">{{ update.user }}</a></p>
+		{% if request.user == update.user %}
+		<a class="icon-trash" href="#" onclick="confirmDel('{% url 'msg_delete' update.id %}?lounge={{ update.lounge.id }}')"><i class="far fa-trash-alt"></i></a>
+		{% endif %}
+		</div>
+		<p class="smol-text">Replied to: "<a href="{% url 'lounge_details' update.lounge.id %}" class="link">{{ update.lounge }}</a>"</p>
+		<p>{{ update.body|slice:"0:42" }}...</p>
+		<p class="right smol-text">{{ update.created|timesince }} ago</p>
+	</div>
+	{% endfor %}
+	{% else %}
+	<div class="box_updates">
+		<p>No updates yet available.</p>
+	</div>
+	{% endif %}
+</div>

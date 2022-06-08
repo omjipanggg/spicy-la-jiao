@@ -1,0 +1,19 @@
+<div class="card">
+	<div class="card-header">
+		<div class="among-spaces">
+		<p class="content-title"><a href="{% url 'lounge_details' lounge.id %}">{{ lounge.name }}</a></p>
+		{% if request.user == lounge.host %}
+		<!-- <a href="{% url 'lounge_edit' lounge.id %}" class="btn btn-sm btn-outline-dark"><span class="far fa-edit"></span></a> -->
+		<a href="#" onclick="confirmDel('{% url 'lounge_delete' lounge.id %}')" class="btn btn-sm btn-outline-dark">
+			<span class="far fa-trash-alt"></span>
+		</a>
+		{% endif %}
+		</div>
+		<p class="content-author">Posted by @<a href="{% url 'profile' lounge.host.id %}" class="underlined">{{ lounge.host.username }}</a> on {{lounge.created}}</p>
+		<p class="content-details">{{ lounge.description|slice:"0:128" }}...</p>
+	</div>
+	<div class="card-footer">
+		<p class="content-tags">#<a href="{% url 'lounge' %}?query={{ lounge.topic.name }}">{{ lounge.topic.name }}</a></p>
+		<p><span class="fas fa-users"></span>&nbsp;{{ lounge.participants.all.count }}</p>
+	</div>
+</div>

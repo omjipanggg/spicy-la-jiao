@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<section id="profile">
+	<div class="container">
+		<div class="row">
+			<form action="" class="form" method="POST">
+				{% csrf_token %}
+				<div class="input-group">
+					<label for="{{ form.first_name.id_for_label }}" class="form-label">{{ form.first_name.label }}</label>
+					{{ form.first_name }}
+				</div>
+				<div class="input-group">
+					<label for="{{ form.last_name.id_for_label }}" class="form-label">{{ form.last_name.label }}</label>
+					{{ form.last_name }}
+				</div>
+				<div class="input-group">
+					<label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+					{{ form.email }}
+				</div>
+				<div class="input-group">
+					<label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
+					{{ form.username }}
+				</div>
+				<a href="{% url 'profile' request.user.id %}" class="btn">Cancel</a>
+				<button role="button" type="submit" class="btn btn-submit">Submit</button>
+			</form>
+		</div>
+	</div>
+</section>
+{% endblock content %}

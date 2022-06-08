@@ -1,0 +1,180 @@
+{% load static %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
+<script>
+// LOCAL-STORAGE
+$(document).ready(function() {
+	const MODE = 'mode';
+	let currentMode = 'lumos';
+	let locals = localStorage.getItem(MODE);
+	if (locals === 'nox') {
+		$('body').toggleClass('nox');
+	}
+
+	$('.hamburger').click(function() {
+		$(this).toggleClass('is-active');
+		$('.menu-mobile').toggleClass('active');
+		$('ul.dropdown-item').removeClass('active');
+	});
+	$('.bar').click(function() {
+		$('body').toggleClass('nox');
+		$('.circle').toggleClass('active');
+
+		if ($('body').hasClass('nox')) { currentMode = 'nox'; }
+		else { currentMode = 'lumos'; }
+
+		localStorage.setItem(MODE, currentMode);
+	});
+	// var initialScrollPos = window.pageYOffset;
+	$(window).scroll(function(){
+		var scrollPos = $(this).scrollTop();
+		// if (initialScrollPos > scrollPos){
+		// 	$('.navbar').css('top', '0')
+		// } else {
+		// 	$('.navbar').css('top', '-' + scrollPos + 'px')
+		// }
+		// initialScrollPos = scrollPos;
+		var winHeight = $(this).height();
+		var docHeight = $(document).height();
+		var scrollPercentage = 100 * scrollPos / (docHeight - winHeight);
+		// if (winHeight+scrollPos > (docHeight-5)) {
+		// // REACHED THE BOTTOM OF THE DOCUMENT
+		// }
+		$('#moving').css({
+			width: scrollPercentage + '%',
+		});
+	});
+	$('#alert_timer').fadeTo(2750, 500).slideUp(500, function() {
+		$('#alert_timer').slideUp(500);
+	});
+	$('li.dropdown').click(function() {
+		$(this).find('ul').toggleClass('active');
+	});
+	$('li.profile').click(function() {
+		$('.dropdown-item').toggleClass('active');
+	});
+	$('#overlay').click(function() {
+		$('#overlay').toggle();
+		$('.modal').toggle();
+	});
+	$(document).keyup(function(key) {
+		if (key.keyCode === 27) {
+			$('#overlay').hide();
+			$('.modal').hide();
+			$('li.dropdown').find('ul').removeClass('active');
+		}
+	});
+});
+
+let moves = 7;
+let botScore = 0;
+let playerScore = 0;
+const game = (props) => {
+	const textBotScore = document.querySelector('#botScore');
+	const canvas = document.querySelector('#canvas');
+	const move = document.querySelector('#move');
+	const nextScore = document.querySelector('#nextScore');
+	const textPlayerScore = document.querySelector('#playerScore');
+	const textResult = document.querySelector('#textResult');
+	const result = document.querySelector('#result');
+	const restart = document.querySelector('#restart');
+	const spaces = document.querySelector('#spaces');
+
+	const playGame = () => {
+		moves--;
+		const ai = Math.floor(Math.random()*3);
+		const aiHands = ['✊', '✋', '✌'];
+		const bot = aiHands[ai];
+
+		move.innerText = moves;
+		judgeTime(props, bot);
+
+		result.innerText = props + ' vs ' + bot;
+
+		if (moves === 0) {
+			gameOver();
+		}
+	}
+
+	const judgeTime = (player, bot) => {
+		if (player === bot) {
+			nextScore.textContent = "Tie.";
+		}
+		else if (player === '✊') {
+			if (bot === '✋') {
+				nextScore.textContent = "Bot won.";
+				botScore++;
+				textBotScore.textContent = botScore;
+			} else {
+				nextScore.textContent = "You won.";
+				playerScore++;
+				textPlayerScore.textContent = playerScore;
+			}
+		}
+		else if (player === '✋') {
+			if (bot === '✌') {
+				nextScore.textContent = "Bot won.";
+				botScore++;
+				textBotScore.textContent = botScore;
+			} else {
+				nextScore.textContent = "You won.";
+				playerScore++;
+				textPlayerScore.textContent = playerScore;
+			}
+		}
+		else if (player === '✌') {
+			if (bot === '✊') {
+				nextScore.textContent = "Bot won.";
+				botScore++;
+				textBotScore.textContent = botScore;
+			} else {
+				nextScore.textContent = "You won.";
+				playerScore++;
+				textPlayerScore.textContent = playerScore;
+			}
+		}
+	}
+
+	const gameOver = () => {
+		canvas.style.display = 'none';
+		restart.style.display = 'block';
+		spaces.style.display = 'none';
+		const say = [];
+		if (playerScore > botScore) {
+			say[0] = 'You won!';
+			say[1] = 'var(--green)';
+		} else if (playerScore < botScore) {
+			say[0] = 'Bot won!';
+			say[1] = 'var(--red)';
+		} else {
+			say[0] = 'Tie.';
+			say[1] = 'var(--yellow)';
+		}
+		result.textContent = say[0];
+		result.style.backgroundColor = say[1];
+		result.style.padding = '0 1rem';
+		result.style.borderRadius = '.25rem';
+	}
+	playGame();
+}
+
+
+function removeModal(props) {
+	for (var i = props.length - 1; i >= 0; i--) {
+		document.querySelector(props[i]).style.display = "none";
+	}
+}
+function openModal(props) {
+	for (var i = props.length - 1; i >= 0; i--) {
+		document.querySelector(props[i]).style.display = "block";
+	}
+}
+function confirmDel(delete_url) {
+    document.querySelector('#delete_modal').style.display = "block";
+    document.querySelector('#overlay').style.display = "block";
+    document.querySelector("#del").setAttribute('href', delete_url);
+}
+function fireNow() {
+    $('#del').trigger('click');
+}
+</script>

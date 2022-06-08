@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="lounge-form">
+<div class="container">
+	<div class="row box">
+		<div class="form">
+			<form action="{% url 'lounge_insert' %}" method="POST">
+				{% csrf_token %}
+				<div class="input-group">
+					<label for="{{ form.topic.id_for_label }}" class="form-label">{{ form.topic.label }}</label>
+					{{ form.topic }}
+				</div>
+				<div class="input-group">
+					<label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
+					{{ form.name }}
+				</div>
+				<div class="input-group">
+					<label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
+					{{ form.description }}
+				</div>
+				<div class="lower">
+				<a href="{{ request.META.HTTP_REFERER }}" class="btn">Cancel</a>
+				<input type="submit" value="Submit" class="btn btn-submit"/>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</section>
+{% endblock content %}

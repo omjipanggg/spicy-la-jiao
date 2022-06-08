@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+<section id="details">
+    <div class="container">
+        <div class="row">
+            <div class="left">
+                <div class="wrap">
+                    <h2 class="text-title">Details: {{ lounge.name }}</h2>
+                    <p class="description">{{lounge.description}}</p>
+                    <p>Posted by @<a href="{% url 'profile' lounge.host.id %}" class="link">{{lounge.host.username}}</a> on {{lounge.created}}</p>
+                    <div class="text-lower among-spaces">
+                        <p class="text-tags">
+                            <span class="fas fa-hashtag"></span>&nbsp;<a href="{% url 'lounge' %}?query={{ lounge.topic.name }}" class="link">{{lounge.topic.name}}</a>
+                        </p>
+                        {% if request.user == lounge.host %}
+                        <!-- <a href="{% url 'lounge_edit' lounge.id %}" class="btn btn-sm btn-outline-dark"><span class="far fa-edit"></span></a> -->
+                        <a href="{% url 'lounge_delete' lounge.id %}" class="link">
+                            <span class="far fa-trash-alt"></span>
+                        </a>
+                    	{% endif %}
+                    </div>
+                </div>
+                <div class="forum wrap">
+                    <h2 class="text-title">Conversation</h2>
+                    {% if request.user.is_authenticated %}
+                    <div class="comets">
+                        <form action="{% url 'lounge_details' lounge.id %}" method="POST" class="among-spaces">
+                            {% csrf_token %}
+                            <input type="text" class="form-control" placeholder="Write a response..." name="comets" autocomplete="off" required="exactly" />
+                            <button type="submit" class="btn btn-send" role="button">Send</button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div class="comets">
+                    	<p><a href="{% url 'auth' %}" class="link underlined">Login/Register</a> to use this feature.</p>
+                    </div>
+                    {% endif %}
+                    {% if msgs %}
+                    {% for msg in msgs %}
+                    <div class="forum-body">
+                        <small class="among-spaces">
+                            <p>@<a href="{% url 'profile' msg.user.id %}" class="link">{{ msg.user }}</a> • {{ msg.created|timesince }} ago.</p>
+                            {% if request.user == msg.user %}
+                            <a href="{% url 'msg_delete' msg.id %}?lounge={{ lounge.id }}" class="link"><span class="fas fa-times"></span></a>
+                            {% endif %}
+                        </small>
+                        <p>{{msg.body}}</p>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p>No conversation yet available.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="right">
+                <div class="party wrap">
+                    <h2 class="text-title">Participants</h2>
+                    <ul class="list-group">
+                        {% if parties %}
+                        {% for party in parties %}
+                        <li class="list-group-item">@<a href="{% url 'profile' party.id %}" class="link">{{ party }}</a></li>
+                        {% endfor %}
+                        {% else %}
+                        <p>No participant just yet.</p>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

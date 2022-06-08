@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section id="home">
+	<div class="container">
+		<div class="row">
+			<div class="jumbotron">
+				<h1>Henlo, people! <i class="far fa-hand-peace"></i></h1><br/><p>Welcome to my very first website creation: <b>Misrocite!</b></p><p>This website was developed by using <a href="https://djangoproject.com/" target="blank">Django Framework</a> and some popular libraries. Please, make yourself at home, and please try not to get lost.</p><br/><p>You can always go directly to the <a href="{% url 'task' %}">task-list</a> thingy, or play the classic <a href="{% url 'rps' %}">rock-paper-scissor</a> game, or even join others in <a href="{% url 'lounge' %}">the lounge</a>.</p><br/><p>Have fun! <i class="fas fa-champagne-glasses"></i></p>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock content %}

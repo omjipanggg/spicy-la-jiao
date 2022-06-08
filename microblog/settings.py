@@ -20,12 +20,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(xlr45dwdpt7_pn$=q_o-yget9s*_##s^!-h+i*h5c%4jctn6y'
+# SECRET_KEY = 'django-insecure-(xlr45dwdpt7_pn$=q_o-yget9s*_##s^!-h+i*h5c%4jctn6y'
+SECRET_KEY = 'r*ihx5b199%+uy#0h=4!smuv^ogmwar_4in7_q%p6&muoep@@+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -49,6 +52,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SUBDOMAINS = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_SECONDS = 60
 
 ROOT_URLCONF = 'microblog.urls'
 
